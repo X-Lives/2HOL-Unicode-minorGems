@@ -1493,6 +1493,8 @@ int mainFunction( int inNumArgs, char **inArgs ) {
         }
     
     int sdlResult = SDL_Init( flags );
+    AppLog::setLog( new FileLog( "log.txt" ) );
+    AppLog::setLoggingLevel( Log::DETAIL_LEVEL );
 
 
     // do this mac check after initing SDL,
@@ -1508,17 +1510,20 @@ int mainFunction( int inNumArgs, char **inArgs ) {
         // arg 0 is the path to the app executable
         char *appDirectoryPath = stringDuplicate( inArgs[0] );
     
-        char *bundleName = autoSprintf( "%s_%d.app", 
+        char *bundleName = autoSprintf( "%s_v%d.app",
                                         getAppName(), getAppVersion() );
 
         char *appNamePointer = strstr( appDirectoryPath, bundleName );
+        AppLog::info( appDirectoryPath );
+        AppLog::info( bundleName );
 
         if( appNamePointer != NULL ) {
             // terminate full app path to get parent directory
             appNamePointer[0] = '\0';
-            
+            AppLog::info( "chdir" );
             chdir( appDirectoryPath );
             }
+        AppLog::info( appDirectoryPath );
                 
         
         if( ! isSettingsFolderFound() ) {
@@ -1634,8 +1639,6 @@ int mainFunction( int inNumArgs, char **inArgs ) {
 
         
 
-    AppLog::setLog( new FileLog( "log.txt" ) );
-    AppLog::setLoggingLevel( Log::DETAIL_LEVEL );
     
     AppLog::info( "New game starting up" );
     
