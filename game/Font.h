@@ -123,14 +123,9 @@ class Font {
 
         void drawChar(unicode c, doublePair inCenter);
 
-// FOVMOD NOTE:  Change 1/1 - Take these lines during the merge process
-void Font::setScaleFactor( double newScaleFactor ) {
-    mScaleFactor = newScaleFactor;
-}
-
-double Font::getScaleFactor() {
-    return mScaleFactor;
-}
+        // FOVMOD NOTE:  Change 1/1 - Take these lines during the merge process
+        void setScaleFactor( double newScaleFactor );
+        double getScaleFactor();
 
     private:        
         
